@@ -26,6 +26,9 @@ const messageToConsoleLog = text => {
   console.log(magentaColor, `\n${text}`, resetColor);
 };
 
+const messageHelp =
+  'Use commands:\n  - Get all contacts: "node index --action list"\n  - Get contact by id: "node index --action get --id 05olLMgyVQdWRwgKfg5J6"\n  - Add contact: "node index --action add --name Petro --email email@mail.com --phone 1-800-111-22-33"\n  - Remove contact: "node index --action remove --id 05olLMgyVQdWRwgKfg5J6"\n  - Help and about program: "node index --action help"';
+
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case 'list':
@@ -47,7 +50,6 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case 'remove':
-      //   const removedContact = await getContactById(id);
       const removedContact = await removeContact(id);
       messageToConsoleLog('You remove contact:');
       console.table(removedContact);
@@ -55,24 +57,14 @@ async function invokeAction({ action, id, name, email, phone }) {
 
     case 'help':
       messageToConsoleLog(
-        'This program the manager contacts. You can list, get, add, remove contacts.'
+        'This program is the contacts manager. You can get all contacts, get, add, and remove contacts.'
       );
+      messageToConsoleLog(messageHelp);
       break;
 
     default:
       console.log('\x1B[31m', '\nUnknown action type!');
-      messageToConsoleLog('Use command:');
-      messageToConsoleLog('Get all contacts: "node index --action list"');
-      messageToConsoleLog(
-        'Get contact by id: "node index --action get --id 05olLMgyVQdWRwgKfg5J6"'
-      );
-      messageToConsoleLog(
-        'Add contact: "node index --action add --name Petro --email email@mail.com --phone 1-800-111-22-33"'
-      );
-      messageToConsoleLog(
-        'Remove contact: "node index --action remove --id 05olLMgyVQdWRwgKfg5J6"'
-      );
-      messageToConsoleLog('Help and about program: "node index --action help"');
+      messageToConsoleLog(messageHelp);
   }
 }
 

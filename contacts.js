@@ -27,6 +27,9 @@ async function getContactById(contactId) {
   try {
     const contacts = await readFile();
     const contactById = contacts.filter(contact => contact.id === contactId);
+    if (contactById.length === 0) {
+      return 'Not find contact.';
+    }
     return contactById;
   } catch (error) {
     console.log(error.message);
@@ -39,9 +42,6 @@ async function removeContact(contactId) {
     const removedContact = await getContactById(contactId);
     const newContacts = contacts.filter(contact => contact.id !== contactId);
     await writeFile(newContacts);
-    if (removedContact.length === 0) {
-      return 'Not find contact.';
-    }
     return removedContact;
   } catch (error) {
     console.log(error.message);
