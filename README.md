@@ -1,15 +1,18 @@
-# Program Node.JS - Command Line Interface
+# Node.JS - Command Line Interface
+
+<div align="center">
+<image src="/assets/screenshot.png" alt="screen" align='center'>
+</div>
 
 ---
 
 ## Description
 
-_This application a contacts manager for work with your contacts.
-You can get all contacts, get contact by id, add new contact, remove contact by id_
+_This application is the **contacts manager** for work with your contacts.. You can get all contacts, get contact by id, add contact and remove contact by id._
 
 ## Table of Contents
 
-- [Program Node.JS - Command Line Interface](#program-nodejs---command-line-interface)
+- [Node.JS - Command Line Interface](#nodejs---command-line-interface)
   - [Description](#description)
   - [Table of Contents](#table-of-contents)
   - [Technologies used](#technologies-used)
@@ -44,7 +47,7 @@ $ node index.js --action get --id 05olLMgyVQdWRwgKfg5J6
 // Add contact
 $ node index.js --action add --name Mango --email mango@gmail.com --phone 322-22-22
 
-// Remove contact
+// Remove contact by id
 node index.js --action remove --id qdggE76Jtbfd9eWJHrssH
 
 // Get help

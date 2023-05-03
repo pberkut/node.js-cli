@@ -57,7 +57,7 @@ async function invokeAction({ action, id, name, email, phone }) {
 
     case 'help':
       messageToConsoleLog(
-        'This program is the contacts manager. You can get all contacts, get, add, and remove contacts.'
+        'This application is the contacts manager. You can get all contacts, get, add, and remove contacts.'
       );
       messageToConsoleLog(messageHelp);
       break;
