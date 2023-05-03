@@ -1,0 +1,23 @@
+{
+  "name": "node.js-cli",
+  "version": "1.0.0",
+  "description": "Node.JS - Command Line Interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pberkut/node.js-cli.git"
+  },
+  "keywords": [
+    "node.js",
+    "node"
+  ],
+  "author": "Pavlo Berkut",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pberkut/node.js-cli/issues"
+  },
+  "homepage": "https://github.com/pberkut/node.js-cli#readme"
+}
