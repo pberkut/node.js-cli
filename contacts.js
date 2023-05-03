@@ -26,11 +26,11 @@ async function listContacts() {
 async function getContactById(contactId) {
   try {
     const contacts = await readFile();
-    const contactById = contacts.filter(contact => contact.id === contactId);
-    if (contactById.length === 0) {
+    const contactById = contacts.find(contact => contact.id === contactId);
+    if (!contactById) {
       return 'Not find contact.';
     }
-    return contactById;
+    return [contactById];
   } catch (error) {
     console.log(error.message);
   }
