@@ -4,7 +4,9 @@
   "description": "Node.JS - Command Line Interface",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "start:dev": "nodemon index"
   },
   "repository": {
     "type": "git",
@@ -12,12 +14,16 @@
   },
   "keywords": [
     "node.js",
-    "node"
+    "node",
+    "cli"
   ],
   "author": "Pavlo Berkut",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pberkut/node.js-cli/issues"
   },
-  "homepage": "https://github.com/pberkut/node.js-cli#readme"
+  "homepage": "https://github.com/pberkut/node.js-cli#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
