@@ -14,14 +14,10 @@ const writeFile = async data => {
   await fs.writeFile(contactsPath, text);
 };
 
-const addText = async text => {
-  await fs.appendFile(contactsPath, text);
-};
-
 async function listContacts() {
   try {
     const contacts = await readFile();
-    console.log(contacts);
+    return contacts;
   } catch (error) {
     console.log(error.message);
   }
@@ -31,7 +27,7 @@ async function getContactById(contactId) {
   try {
     const contacts = await readFile();
     const contactById = contacts.filter(contact => contact.id === contactId);
-    console.log(contactById);
+    return contactById;
   } catch (error) {
     console.log(error.message);
   }
@@ -40,9 +36,13 @@ async function getContactById(contactId) {
 async function removeContact(contactId) {
   try {
     const contacts = await readFile();
+    const removedContact = await getContactById(contactId);
     const newContacts = contacts.filter(contact => contact.id !== contactId);
-
     await writeFile(newContacts);
+    if (removedContact.length === 0) {
+      return 'Not find contact.';
+    }
+    return removedContact;
   } catch (error) {
     console.log(error.message);
   }
@@ -63,6 +63,8 @@ async function addContact(name, email, phone) {
   contacts.push(newContact);
 
   await writeFile(contacts);
+
+  return [newContact];
 }
 
 const contacts = {

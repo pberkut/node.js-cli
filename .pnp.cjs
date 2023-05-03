@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["commander", "npm:10.0.1"],\
             ["nodemon", "npm:2.0.22"]\
           ],\
           "linkType": "SOFT"\
@@ -269,6 +270,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/color-support-npm-1.1.3-3be5c53455-9b73568176.zip/node_modules/color-support/",\
           "packageDependencies": [\
             ["color-support", "npm:1.1.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["commander", [\
+        ["npm:10.0.1", {\
+          "packageLocation": "./.yarn/cache/commander-npm-10.0.1-f17613b72b-436901d64a.zip/node_modules/commander/",\
+          "packageDependencies": [\
+            ["commander", "npm:10.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -891,6 +901,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["node.js-cli", "workspace:."],\
+            ["commander", "npm:10.0.1"],\
             ["nodemon", "npm:2.0.22"]\
           ],\
           "linkType": "SOFT"\
