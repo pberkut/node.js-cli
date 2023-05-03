@@ -3,7 +3,7 @@ const path = require('path');
 
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
-const readFile = async () => {
+const getAllContacts = async () => {
   const data = await fs.readFile(contactsPath);
   const parseData = JSON.parse(data);
   return parseData;
@@ -16,7 +16,7 @@ const writeFile = async data => {
 
 async function listContacts() {
   try {
-    const contacts = await readFile();
+    const contacts = await getAllContacts();
     return contacts;
   } catch (error) {
     console.log(error.message);
@@ -25,7 +25,7 @@ async function listContacts() {
 
 async function getContactById(contactId) {
   try {
-    const contacts = await readFile();
+    const contacts = await getAllContacts();
     const contactById = contacts.find(contact => contact.id === contactId);
     if (!contactById) {
       return 'Not find contact.';
@@ -38,7 +38,7 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
   try {
-    const contacts = await readFile();
+    const contacts = await getAllContacts();
     const removedContact = await getContactById(contactId);
     const newContacts = contacts.filter(contact => contact.id !== contactId);
     await writeFile(newContacts);
@@ -58,7 +58,7 @@ async function addContact(name, email, phone) {
     phone,
   };
 
-  const contacts = await readFile();
+  const contacts = await getAllContacts();
 
   contacts.push(newContact);
 
