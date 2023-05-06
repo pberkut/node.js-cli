@@ -1,12 +1,12 @@
 const fs = require('fs/promises');
 const path = require('path');
+const { randomUUID } = require('crypto');
 
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 const getAllContacts = async () => {
   const data = await fs.readFile(contactsPath);
-  const parseData = JSON.parse(data);
-  return parseData;
+  return JSON.parse(data);
 };
 
 const writeFile = async data => {
@@ -40,20 +40,26 @@ async function getContactById(contactId) {
 async function removeContact(contactId) {
   try {
     const contacts = await getAllContacts();
-    const removedContact = await getContactById(contactId);
-    const newContacts = contacts.filter(contact => contact.id !== contactId);
-    await writeFile(newContacts);
-    return removedContact;
+    // const removedContact = await getContactById(contactId);
+    // const newContacts = contacts.filter(contact => contact.id !== contactId);
+    const index = contacts.findIndex(item => item.id === id);
+    if (index === -1) {
+      return null;
+    }
+    const [result] = contacts.splice(index, 1);
+    // await writeFile(newContacts);
+    await writeFile(contacts);
+    return result;
   } catch (error) {
     console.log(error.message);
   }
 }
 
 async function addContact(name, email, phone) {
-  const id = Date.now().toString();
+  // const id = Date.now().toString();
 
   const newContact = {
-    id,
+    id: randomUUID(),
     name,
     email,
     phone,
