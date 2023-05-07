@@ -1,6 +1,5 @@
 const fs = require('fs/promises');
 const path = require('path');
-const { randomUUID } = require('crypto');
 
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
@@ -9,15 +8,12 @@ const getAllContacts = async () => {
   return JSON.parse(data);
 };
 
-const writeFile = async data => {
-  const text = JSON.stringify(data);
-  await fs.writeFile(contactsPath, text);
-};
+const writeFile = async text =>
+  await fs.writeFile(contactsPath, JSON.stringify(text, null, 2));
 
 async function listContacts() {
   try {
-    const contacts = await getAllContacts();
-    return contacts;
+    return await getAllContacts();
   } catch (error) {
     console.log(error.message);
   }
@@ -40,45 +36,48 @@ async function getContactById(contactId) {
 async function removeContact(contactId) {
   try {
     const contacts = await getAllContacts();
-    // const removedContact = await getContactById(contactId);
-    // const newContacts = contacts.filter(contact => contact.id !== contactId);
-    const index = contacts.findIndex(item => item.id === id);
+    const index = contacts.findIndex(item => item.id === contactId);
     if (index === -1) {
       return null;
     }
     const [result] = contacts.splice(index, 1);
-    // await writeFile(newContacts);
     await writeFile(contacts);
-    return result;
+    return [result];
   } catch (error) {
     console.log(error.message);
   }
 }
 
 async function addContact(name, email, phone) {
-  // const id = Date.now().toString();
+  const id = Date.now().toString();
 
   const newContact = {
-    id: randomUUID(),
+    id,
     name,
     email,
     phone,
   };
 
   const contacts = await getAllContacts();
-
   contacts.push(newContact);
-
   await writeFile(contacts);
-
   return [newContact];
 }
+
+const updateContactById = async (contactId, data) => {
+  const contacts = await getAllContacts();
+  const index = contacts.findIndex(contact => contact.id === contactId);
+  contacts[index] = { id: contactId, ...data };
+  await writeFile(contacts);
+  return contacts[index];
+};
 
 const contacts = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
+  updateContactById,
 };
 
 module.exports = contacts;

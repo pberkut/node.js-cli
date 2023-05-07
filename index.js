@@ -4,6 +4,7 @@ const {
   getContactById,
   addContact,
   removeContact,
+  updateContactById,
 } = require('./contacts');
 
 const program = new Command();
@@ -13,6 +14,7 @@ program
   .option('-i, --id <type>', 'user id')
   .option('-n, --name <type>', 'user name')
   .option('-e, --email <type>', 'user email')
+  // .option('-u, --update <type>, '')
   .option('-p, --phone <type>', 'user phone');
 
 program.parse(process.argv);
@@ -47,6 +49,12 @@ async function invokeAction({ action, id, name, email, phone }) {
       const newContact = await addContact(name, email, phone);
       messageToConsoleLog('You add new contact:');
       console.table(newContact);
+      break;
+
+    case 'update':
+      const updateContact = await updateContactById(id, { name, email, phone });
+      messageToConsoleLog('You update contact:');
+      console.table(updateContact);
       break;
 
     case 'remove':
