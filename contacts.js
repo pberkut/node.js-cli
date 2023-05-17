@@ -8,8 +8,8 @@ const getAllContacts = async () => {
   return JSON.parse(data);
 };
 
-const writeFile = async text =>
-  await fs.writeFile(contactsPath, JSON.stringify(text, null, 2));
+const writeAllContacts = async text =>
+  await fs.writeAllContacts(contactsPath, JSON.stringify(text, null, 2));
 
 async function listContacts() {
   try {
@@ -33,21 +33,6 @@ async function getContactById(contactId) {
   }
 }
 
-async function removeContact(contactId) {
-  try {
-    const contacts = await getAllContacts();
-    const index = contacts.findIndex(item => item.id === contactId);
-    if (index === -1) {
-      return null;
-    }
-    const [result] = contacts.splice(index, 1);
-    await writeFile(contacts);
-    return [result];
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
 async function addContact(name, email, phone) {
   const id = Date.now().toString();
 
@@ -60,17 +45,32 @@ async function addContact(name, email, phone) {
 
   const contacts = await getAllContacts();
   contacts.push(newContact);
-  await writeFile(contacts);
+  await writeAllContacts(contacts);
   return [newContact];
 }
 
 const updateContactById = async (contactId, data) => {
   const contacts = await getAllContacts();
   const index = contacts.findIndex(contact => contact.id === contactId);
-  contacts[index] = { id: contactId, ...data };
-  await writeFile(contacts);
+  contacts[index] = { ...contacts[index], ...data };
+  await writeAllContacts(contacts);
   return contacts[index];
 };
+
+async function removeContact(contactId) {
+  try {
+    const contacts = await getAllContacts();
+    const index = contacts.findIndex(item => item.id === contactId);
+    if (index === -1) {
+      return null;
+    }
+    const [result] = contacts.splice(index, 1);
+    await writeAllContacts(contacts);
+    return [result];
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 const contacts = {
   listContacts,
